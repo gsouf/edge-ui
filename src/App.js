@@ -14,6 +14,7 @@ import './app.css';
 const uiTheme = createMuiTheme({
   palette: {
     type: 'dark',
+    primary: { main: '#3760bd' },
   },
 });
 

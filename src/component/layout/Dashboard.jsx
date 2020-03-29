@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) =>
       overflowY: 'auto',
     },
     logo: {
-      background: '#3f2c66',
+      background: theme.palette.primary.dark,
     },
     nested: {
       paddingLeft: theme.spacing(4),
