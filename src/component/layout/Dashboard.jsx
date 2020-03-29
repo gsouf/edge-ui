@@ -45,17 +45,20 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-async function logout() {
-  try {
-    await EdgeDBClient.logout();
-  } finally {
-    navigate('/login');
-  }
-}
-
 export default function Dashboard({ children }) {
   const classes = useStyles();
-  const { databases } = useContext(AppContext);
+  const { databases, setDatabases, setHasAuth } = useContext(AppContext);
+
+  async function logout() {
+    try {
+      await EdgeDBClient.logout();
+    } finally {
+      navigate('/login');
+      setDatabases(null);
+      setDatabases(null);
+      setHasAuth(false);
+    }
+  }
 
   return (
     <div className={classes.root}>
