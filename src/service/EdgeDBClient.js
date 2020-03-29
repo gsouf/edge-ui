@@ -37,6 +37,17 @@ class EdgeDBClient {
       throw Error(message);
     }
   }
+
+  async logout() {
+    try {
+      const res = await axios.post('/api/logout');
+      return res.data;
+    } catch (e) {
+      console.error(e);
+      const message = e.response?.data?.error || e.message;
+      throw Error(message);
+    }
+  }
 }
 
 const client = new EdgeDBClient();

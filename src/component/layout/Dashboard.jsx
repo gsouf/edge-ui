@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { navigate } from '@reach/router';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import * as MD from '@material-ui/core';
 import { Link } from '@reach/router';
 import Logo from '../misc/Logo';
 import Storage from '@material-ui/icons/Storage';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { useSnackbar } from 'notistack';
 import EdgeDBClient from '../../service/EdgeDBClient';
 
@@ -30,8 +32,26 @@ const useStyles = makeStyles((theme) =>
     nested: {
       paddingLeft: theme.spacing(4),
     },
+    list: {
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+    },
+    disconnect: {
+      '&:hover': {
+        background: theme.palette.error.dark,
+      },
+    },
   })
 );
+
+async function logout() {
+  try {
+    await EdgeDBClient.logout();
+  } finally {
+    navigate('/login');
+  }
+}
 
 export default function Dashboard({ children }) {
   const classes = useStyles();
@@ -56,7 +76,7 @@ export default function Dashboard({ children }) {
       <MD.Box display="flex" width="100%">
         <MD.CssBaseline />
         <div className={classes.navbar}>
-          <MD.List disablePadding={true}>
+          <MD.List disablePadding={true} className={classes.list}>
             <li>
               <MD.ListItem
                 className={classes.logo}
@@ -95,6 +115,20 @@ export default function Dashboard({ children }) {
                   </MD.Box>
                 )}
               </MD.Collapse>
+            </li>
+            <MD.Box component={'li'} flex={1} />
+            <MD.Divider />
+            <li>
+              <MD.ListItem
+                button
+                className={classes.disconnect}
+                onClick={logout}
+              >
+                <MD.ListItemIcon>
+                  <HighlightOffIcon />
+                </MD.ListItemIcon>
+                <MD.ListItemText primary="disconnect" />
+              </MD.ListItem>
             </li>
           </MD.List>
         </div>

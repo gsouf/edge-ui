@@ -109,6 +109,12 @@ app.post('/api/edgeql', async (req, res) => {
   }
 });
 
+app.post('/api/logout', (req, res) => {
+  req.session.connectionOptions = null;
+  res.status(200);
+  res.json({ status: 'ok' });
+});
+
 const port = 5005;
 app.listen(port, () =>
   console.log(`Express server is running on http://localhost:${port}`)
