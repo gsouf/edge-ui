@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) =>
       borderRadius: '3px',
       position: 'absolute',
       top: '-13rem',
-      background:
-        'radial-gradient(circle at center center,#40025c 15%,#1c104c 100%)',
+      background: '#40025c',
+      boxShadow: '0px 0px 12px 1px rgba(0, 0, 0, 0.7)',
     },
     item2: {
       width: '105vh',
