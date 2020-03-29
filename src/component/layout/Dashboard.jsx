@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { navigate } from '@reach/router';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import * as MD from '@material-ui/core';
@@ -6,8 +6,8 @@ import { Link } from '@reach/router';
 import Logo from '../misc/Logo';
 import Storage from '@material-ui/icons/Storage';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { useSnackbar } from 'notistack';
 import EdgeDBClient from '../../service/EdgeDBClient';
+import AppContext from '../../context/AppContext';
 
 const navbarWidth = 300;
 const useStyles = makeStyles((theme) =>
@@ -55,21 +55,7 @@ async function logout() {
 
 export default function Dashboard({ children }) {
   const classes = useStyles();
-  const [databases, setDatabases] = useState(null);
-  const { enqueueSnackbar } = useSnackbar();
-
-  // fetch databases on login
-  useEffect(() => {
-    EdgeDBClient.edgeql('SELECT sys::Database.name')
-      .then((databases) => {
-        setDatabases(databases.data);
-      })
-      .catch((e) => {
-        enqueueSnackbar(`Cannot fetch db list: ${e.message}`, {
-          variant: 'error',
-        });
-      });
-  }, []);
+  const { databases } = useContext(AppContext);
 
   return (
     <div className={classes.root}>
