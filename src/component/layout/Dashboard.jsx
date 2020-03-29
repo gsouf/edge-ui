@@ -8,6 +8,8 @@ import Storage from '@material-ui/icons/Storage';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import EdgeDBClient from '../../service/EdgeDBClient';
 import AppContext from '../../context/AppContext';
+import NavLink from './dashboard/NavLink';
+import PropTypes from 'prop-types';
 
 const navbarWidth = 300;
 const useStyles = makeStyles((theme) =>
@@ -45,7 +47,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export default function Dashboard({ children }) {
+export default function Dashboard({ children, location }) {
   const classes = useStyles();
   const { databases, setDatabases, setHasAuth } = useContext(AppContext);
 
@@ -88,14 +90,13 @@ export default function Dashboard({ children }) {
                 {databases &&
                   databases.map((db) => (
                     <MD.List component="div" disablePadding>
-                      <MD.ListItem
-                        button
+                      <NavLink
                         className={classes.nested}
-                        component={Link}
                         to={`/db/${db}`}
+                        location={location}
                       >
                         <MD.ListItemText primary={db} />
-                      </MD.ListItem>
+                      </NavLink>
                     </MD.List>
                   ))}
                 {!databases && (
@@ -126,3 +127,7 @@ export default function Dashboard({ children }) {
     </div>
   );
 }
+
+Dashboard.propTypes = {
+  location: PropTypes.object.isRequired,
+};

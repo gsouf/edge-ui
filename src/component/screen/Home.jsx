@@ -5,9 +5,9 @@ import * as MD from '@material-ui/core';
 /**
  * Home screen
  */
-export default function Home() {
+export default function Home(props) {
   return (
-    <Dashboard>
+    <Dashboard {...props}>
       <MD.Box
         display="flex"
         flex={1}

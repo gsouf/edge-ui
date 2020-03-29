@@ -56,7 +56,7 @@ export default function DB(props) {
   };
 
   return (
-    <Dashboard>
+    <Dashboard {...props}>
       <MD.Box
         display="flex"
         flexDirection="column"
