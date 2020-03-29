@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import * as MD from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import { navigate } from '@reach/router';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
@@ -97,8 +98,11 @@ export default function LoginForm(props) {
         open={!!error}
         autoHideDuration={6000}
         onClose={() => setError(null)}
-        message={error}
-      />
+      >
+        <Alert elevation={6} variant="filled" severity="error">
+          {error}
+        </Alert>
+      </MD.Snackbar>
 
       <MD.TextField
         variant="outlined"
