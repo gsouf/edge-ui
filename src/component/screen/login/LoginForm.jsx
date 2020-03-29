@@ -63,12 +63,12 @@ export default function LoginForm(props) {
         password,
       });
       setSuccess(true);
+      setHasAuth(true);
 
       // Make transition smoother
       setTimeout(() => {
-        setHasAuth(true);
         navigate('/');
-      }, 500);
+      }, 600);
     } catch (e) {
       console.error(e);
       console.error(e.response);
