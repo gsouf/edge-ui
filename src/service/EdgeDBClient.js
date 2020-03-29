@@ -1,10 +1,6 @@
 import axios from 'axios';
 
-export default class EdgeDBClient {
-  constructor() {
-    this.conn = null;
-  }
-
+class EdgeDBClient {
   async connect({ port, host, user, password }) {
     await axios.post('/api/login', {
       port,
@@ -28,4 +24,20 @@ export default class EdgeDBClient {
       return false;
     }
   }
+
+  async edgeql(query) {
+    try {
+      const res = await axios.post('/api/edgeql', {
+        query: query,
+      });
+      return res.data;
+    } catch (e) {
+      console.error(e);
+      const message = e.response?.data?.error || e.message;
+      throw Error(message);
+    }
+  }
 }
+
+const client = new EdgeDBClient();
+export default client;

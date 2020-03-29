@@ -89,6 +89,26 @@ app.get('/api/has-connection', async (req, res) => {
   }
 });
 
+app.post('/api/edgeql', async (req, res) => {
+  if (!req.edgeClient) {
+    res.status(401);
+    res.json({ status: 'error', error: 'Not connected' });
+  } else {
+    // TODO validate input
+    try {
+      const conn = await req.edgeClient.getConnection();
+      console.debug(`executing: ${req.body.query}`);
+      const r = await conn.fetchAll(req.body.query);
+      res.status(200);
+      res.json({ status: 'ok', data: r });
+    } catch (e) {
+      console.error(e);
+      res.status(500);
+      res.json({ status: 'error', error: e.message });
+    }
+  }
+});
+
 const port = 5005;
 app.listen(port, () =>
   console.log(`Express server is running on http://localhost:${port}`)

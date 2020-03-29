@@ -6,7 +6,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import EdgeDBClient from 'service/EdgeDBClient';
 import Form from 'component/misc/Form';
-import AuthContext from 'context/AuthContext';
+import AppContext from 'context/AppContext';
 import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) =>
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) =>
 export default function LoginForm(props) {
   const classes = useStyles();
 
-  const { setHasAuth } = useContext(AuthContext);
+  const { setHasAuth } = useContext(AppContext);
   const [user, setUser] = useState('edgedb');
   const [password, setPassword] = useState('');
   const [host, setHost] = useState('127.0.0.1');
@@ -56,8 +56,7 @@ export default function LoginForm(props) {
     setLoading(true);
 
     try {
-      const client = new EdgeDBClient();
-      await client.connect({
+      await EdgeDBClient.connect({
         host,
         port,
         user,
