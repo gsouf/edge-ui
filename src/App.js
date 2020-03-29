@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as MD from '@material-ui/core';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Routes from './Routes';
 import AuthContext from './context/AuthContext';
 import EdgeDBClient from './service/EdgeDBClient';
@@ -7,6 +8,13 @@ import EdgeDBClient from './service/EdgeDBClient';
 // Inject styles
 import 'typeface-roboto';
 import './app.css';
+
+// theme
+const uiTheme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -25,7 +33,7 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <ThemeProvider theme={uiTheme}>
       <MD.CssBaseline />
 
       {loading && (
@@ -44,6 +52,6 @@ export default function App() {
           <Routes />
         </AuthContext.Provider>
       )}
-    </>
+    </ThemeProvider>
   );
 }
