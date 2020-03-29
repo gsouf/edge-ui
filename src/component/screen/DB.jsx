@@ -123,7 +123,7 @@ export default function DB(props) {
           <div>
             <MD.Tooltip
               title={
-                'Allows to execute multiple statement at once (ie transactions) but does not produce any output'
+                'Allows to execute multiple statement at once (ie transactions) but does not produce any output.'
               }
               arrow
             >
@@ -151,7 +151,7 @@ export default function DB(props) {
             loading={processing}
             success={processed}
             disabled={!edgeQL || processing}
-            label={'send edgeQL'}
+            label={'Execute the query'}
           />
           {error && (
             <Alert
