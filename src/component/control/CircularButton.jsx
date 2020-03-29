@@ -76,7 +76,7 @@ export default function CircularButton(props) {
 }
 
 CircularButton.propTypes = {
-  icon: PropTypes.elementType.isRequired,
+  icon: PropTypes.any.isRequired,
   onClick: PropTypes.func,
   label: PropTypes.string,
   color: PropTypes.string,
