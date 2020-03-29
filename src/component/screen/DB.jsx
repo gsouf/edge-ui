@@ -8,6 +8,7 @@ import EdgeDBClient from 'service/EdgeDBClient';
 import Alert from '@material-ui/lab/Alert';
 import CloseIcon from '@material-ui/icons/Close';
 import StorageIcon from '@material-ui/icons/Storage';
+import ResultsViewer from './db/ResultsViewer';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -172,7 +173,7 @@ export default function DB(props) {
             </Alert>
           )}
         </MD.Box>
-        {results && <pre>{JSON.stringify(results)}</pre>}
+        <ResultsViewer results={results} />
       </MD.Box>
     </Dashboard>
   );
