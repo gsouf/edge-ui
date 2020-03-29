@@ -29,16 +29,18 @@ function AppManager(props) {
 
   // fetch databases on login
   useEffect(() => {
-    setDatabases(null);
-    EdgeDBClient.edgeql('SELECT sys::Database.name')
-      .then((databases) => {
-        setDatabases(databases.data);
-      })
-      .catch((e) => {
-        enqueueSnackbar(`Cannot fetch db list: ${e.message}`, {
-          variant: 'error',
+    if (hasAuth) {
+      setDatabases(null);
+      EdgeDBClient.edgeql('SELECT sys::Database.name')
+        .then((databases) => {
+          setDatabases(databases.data);
+        })
+        .catch((e) => {
+          enqueueSnackbar(`Cannot fetch db list: ${e.message}`, {
+            variant: 'error',
+          });
         });
-      });
+    }
   }, [hasAuth]);
 
   return props.children;
