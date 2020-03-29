@@ -31,6 +31,13 @@ const useStyles = makeStyles((theme) =>
       display: 'flex',
       alignItems: 'center',
       padding: `${theme.spacing(3)}px ${theme.spacing(2)}px`,
+
+      '& > *': {
+        marginRight: theme.spacing(4),
+      },
+    },
+    barlabel: {
+      fontSize: theme.typography.fontSize,
     },
     monospace: {
       fontFamily: 'Monospace',
@@ -48,13 +55,18 @@ export default function DB(props) {
   const [processing, setProcessing] = useState(false);
   const [processed, setProcessed] = useState(false);
   const [error, setError] = useState(null);
+  const [isExecute, setIsExecute] = useState(false);
   const [results, setResults] = useState(null);
 
   const sendEdgeQL = async () => {
     setProcessing(true);
     setError(null);
     try {
-      const data = await EdgeDBClient.edgeql(edgeQL);
+      const data = await EdgeDBClient.edgeql({
+        query: edgeQL,
+        database: props.dbName,
+        isExecute,
+      });
       setResults(data);
       setProcessed(true);
       setTimeout(() => {
@@ -106,6 +118,29 @@ export default function DB(props) {
               icon={<StorageIcon />}
               label={props.dbName}
             />
+          </div>
+
+          <div>
+            <MD.Tooltip
+              title={
+                'Allows to execute multiple statement at once (ie transactions) but does not produce any output'
+              }
+              arrow
+            >
+              <MD.FormControlLabel
+                className={classes.barlabel}
+                control={
+                  <MD.Switch
+                    size="small"
+                    checked={isExecute}
+                    onChange={(e) => setIsExecute(e.target.checked)}
+                    name="isExecute"
+                    color="primary"
+                  />
+                }
+                label="Execute mode"
+              />
+            </MD.Tooltip>
           </div>
         </MD.Box>
         <MD.Box className={classes.actionZone}>

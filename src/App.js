@@ -31,7 +31,7 @@ function AppManager(props) {
   useEffect(() => {
     if (hasAuth) {
       setDatabases(null);
-      EdgeDBClient.edgeql('SELECT sys::Database.name')
+      EdgeDBClient.edgeql({ query: 'SELECT sys::Database.name' })
         .then((databases) => {
           setDatabases(databases.data);
         })

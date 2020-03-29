@@ -25,10 +25,12 @@ class EdgeDBClient {
     }
   }
 
-  async edgeql(query) {
+  async edgeql({ query, database, isExecute }) {
     try {
       const res = await axios.post('/api/edgeql', {
-        query: query,
+        query,
+        database,
+        isExecute,
       });
       return res.data;
     } catch (e) {

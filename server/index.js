@@ -21,7 +21,10 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   if (req.session.connectionOptions) {
     console.debug('reusing existing connection');
-    req.edgeClient = new EdgeClient(req.session.connectionOptions);
+    req.edgeClient = new EdgeClient({
+      ...req.session.connectionOptions,
+      ...(req.body.database ? { database: req.body.database } : {}),
+    });
   }
   res.once('finish', function () {
     if (req.edgeClient) {
@@ -98,9 +101,15 @@ app.post('/api/edgeql', async (req, res) => {
     try {
       const conn = await req.edgeClient.getConnection();
       console.debug(`executing: ${req.body.query}`);
-      const r = await conn.fetchAll(req.body.query);
-      res.status(200);
-      res.json({ status: 'ok', data: r });
+      if (req.body.isExecute) {
+        await conn.execute(req.body.query);
+        res.status(200);
+        res.json({ status: 'ok', data: {} });
+      } else {
+        const r = await conn.fetchAll(req.body.query);
+        res.status(200);
+        res.json({ status: 'ok', data: r });
+      }
     } catch (e) {
       console.error(e);
       res.status(500);
@@ -116,6 +125,15 @@ app.post('/api/logout', (req, res) => {
 });
 
 const port = 5005;
-app.listen(port, () =>
-  console.log(`Express server is running on http://localhost:${port}`)
-);
+
+// give a chance for previous process to close before listening again.
+setTimeout(() => {
+  const server = app.listen(port, () =>
+    console.log(`Express server is running on http://localhost:${port}`)
+  );
+
+  process.on('SIGHUP', () => {
+    console.log('Closing forcibly');
+    server.close();
+  });
+}, 1000);

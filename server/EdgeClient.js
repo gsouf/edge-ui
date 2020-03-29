@@ -7,7 +7,13 @@ class EdgeClient {
   }
 
   async connect() {
-    console.debug('connecting to EdgeDB');
+    console.debug(
+      `connecting to EdgeDB${
+        this.connectionOptions.database
+          ? ` using db ${this.connectionOptions.database}`
+          : ''
+      }`
+    );
     this.connection = await edgedb.connect(this.connectionOptions);
   }
   async close() {
