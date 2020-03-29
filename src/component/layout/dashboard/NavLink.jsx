@@ -19,6 +19,6 @@ export default function NavLink(props) {
 
 NavLink.propTypes = {
   to: PropTypes.string.isRequired,
-  location: PropTypes.string,
+  location: PropTypes.object,
   className: PropTypes.string,
 };
