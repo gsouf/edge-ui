@@ -14,7 +14,7 @@ export default function Home() {
         justifyContent="center"
         alignItems="center"
       >
-        <MD.Box color="#999">Select a database to work with</MD.Box>
+        <MD.Box color="text.disabled">Select a database to work with</MD.Box>
       </MD.Box>
     </Dashboard>
   );

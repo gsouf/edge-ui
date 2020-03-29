@@ -5,6 +5,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import Login from 'component/screen/Login';
 import Home from 'component/screen/Home';
+import DB from 'component/screen/DB';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -20,6 +21,7 @@ export default function Routes() {
     <Router className={classes.root}>
       <Login path="/login" />
       <PrivateRoute path="/" component={Home} />
+      <PrivateRoute path="db/:dbName" component={DB} />
     </Router>
   );
 }
