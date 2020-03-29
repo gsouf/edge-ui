@@ -79,33 +79,31 @@ export default function Dashboard({ children, location }) {
               </MD.ListItem>
             </li>
             <MD.Divider />
-            <li>
-              <MD.ListItem>
-                <MD.ListItemIcon>
-                  <Storage />
-                </MD.ListItemIcon>
-                <MD.ListItemText primary={'Databases'} />
-              </MD.ListItem>
-              <MD.Collapse in={true} timeout="auto" unmountOnExit>
-                {databases &&
-                  databases.map((db) => (
-                    <MD.List component="div" disablePadding key={db}>
-                      <NavLink
-                        className={classes.nested}
-                        to={`/db/${db}`}
-                        location={location}
-                      >
-                        <MD.ListItemText primary={db} />
-                      </NavLink>
-                    </MD.List>
-                  ))}
-                {!databases && (
-                  <MD.Box padding="0 1rem">
-                    <MD.LinearProgress />
-                  </MD.Box>
-                )}
-              </MD.Collapse>
-            </li>
+            <MD.ListItem>
+              <MD.ListItemIcon>
+                <Storage />
+              </MD.ListItemIcon>
+              <MD.ListItemText primary={'Databases'} />
+            </MD.ListItem>
+            <MD.Collapse in={true} timeout="auto" unmountOnExit>
+              {databases &&
+                databases.map((db) => (
+                  <MD.List component="div" disablePadding key={db}>
+                    <NavLink
+                      className={classes.nested}
+                      to={`/db/${db}`}
+                      location={location}
+                    >
+                      <MD.ListItemText primary={db} />
+                    </NavLink>
+                  </MD.List>
+                ))}
+              {!databases && (
+                <MD.Box padding="0 1rem">
+                  <MD.LinearProgress />
+                </MD.Box>
+              )}
+            </MD.Collapse>
             <MD.Box component={'li'} flex={1} />
             <MD.Divider />
             <li>
