@@ -7,6 +7,7 @@ import CircularButton from 'component/control/CircularButton';
 import EdgeDBClient from 'service/EdgeDBClient';
 import Alert from '@material-ui/lab/Alert';
 import CloseIcon from '@material-ui/icons/Close';
+import StorageIcon from '@material-ui/icons/Storage';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -22,6 +23,17 @@ const useStyles = makeStyles((theme) =>
     error: {
       flex: 1,
       margin: `0 ${theme.spacing(2)}px`,
+    },
+    bar: {
+      background: theme.palette.grey[800],
+      height: '2rem',
+      fontFamily: 'Monospace',
+      display: 'flex',
+      alignItems: 'center',
+      padding: `${theme.spacing(3)}px ${theme.spacing(2)}px`,
+    },
+    monospace: {
+      fontFamily: 'Monospace',
     },
   })
 );
@@ -84,6 +96,17 @@ export default function DB(props) {
             }}
             onChange={(e) => setEdgeQL(e.target.value)}
           />
+        </MD.Box>
+        <MD.Box className={classes.bar}>
+          <div>
+            <MD.Chip
+              size="small"
+              color={'primary'}
+              className={classes.monospace}
+              icon={<StorageIcon />}
+              label={props.dbName}
+            />
+          </div>
         </MD.Box>
         <MD.Box className={classes.actionZone}>
           <CircularButton
