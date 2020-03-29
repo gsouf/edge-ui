@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) =>
         display: 'block',
       },
     },
+    resultsContainer: {
+      padding: `0 ${theme.spacing(2)}px`,
+    },
   })
 );
 
@@ -55,13 +58,13 @@ export default function ResultsViewer(props) {
             />
             <MD.Tab className={classes.tab} label={'Raw JSON'} value="raw" />
           </MD.Tabs>
-          <MD.Box>
+          <MD.Box className={classes.resultsContainer}>
             {(() => {
               switch (viewMode) {
                 case 'tree':
-                  return <TreeView results={props.results} />;
+                  return <TreeView data={props.results.data} />;
                 case 'raw':
-                  return <RawView results={props.results} />;
+                  return <RawView data={props.results.data} />;
               }
             })()}
           </MD.Box>

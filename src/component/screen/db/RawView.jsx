@@ -12,7 +12,7 @@ export default function RawView(props) {
 
   return (
     <div className={classes.root}>
-      <pre>{JSON.stringify(props.results, null, 2)}</pre>
+      <pre>{JSON.stringify(props.data, null, 2)}</pre>
     </div>
   );
 }
