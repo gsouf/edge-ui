@@ -77,14 +77,14 @@ export default function Login() {
           <LoginForm />
           <div className={classes.footer}>
             <div>
-              EdgeDB Web UI is on{' '}
-              <MD.Link href="https://github.com/gsouf/edgedb-web-ui">
-                Github <GitHub />
-              </MD.Link>
-            </div>
-            <div>
-              Edge DB Web UI is a community project that has no affiliations
-              with EdgeDB Inc.
+              Edge UI is a community-driven project for{' '}
+              <MD.Link href="https://edgedb.com/">EdgeDB</MD.Link>.
+              <div>
+                Follow it on{' '}
+                <MD.Link href="https://github.com/gsouf/edgedb-web-ui">
+                  Github <GitHub />
+                </MD.Link>
+              </div>
             </div>
           </div>
         </div>
