@@ -73,6 +73,15 @@ export default function DB(props) {
             fullWidth
             label={'EdgeQL'}
             value={edgeQL}
+            inputProps={{
+              onKeyDown: (e) => {
+                if (e.ctrlKey && e.keyCode === 13) {
+                  if (!processing) {
+                    sendEdgeQL();
+                  }
+                }
+              },
+            }}
             onChange={(e) => setEdgeQL(e.target.value)}
           />
         </MD.Box>
