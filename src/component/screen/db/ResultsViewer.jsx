@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) =>
     root: {
       width: '100%',
       height: '100%',
-      borderTop: `1px solid ${theme.palette.divider}`,
       display: 'flex',
     },
     tabs: {
