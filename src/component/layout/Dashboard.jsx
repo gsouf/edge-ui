@@ -84,6 +84,13 @@ export default function Dashboard({ children, location }) {
                 <Storage />
               </MD.ListItemIcon>
               <MD.ListItemText primary={'Databases'} />
+              {databases && (
+                <MD.Chip
+                  size={'small'}
+                  color="white"
+                  label={databases.length}
+                />
+              )}
             </MD.ListItem>
             <MD.Collapse in={true} timeout="auto" unmountOnExit>
               {databases &&
