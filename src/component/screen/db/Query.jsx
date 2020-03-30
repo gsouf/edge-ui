@@ -71,7 +71,7 @@ export default function Query(props) {
       setProcessed(true);
       setTimeout(() => {
         setProcessed(false);
-      }, 1000);
+      }, 1700);
     } catch (e) {
       setError(e.message);
     } finally {
