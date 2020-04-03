@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Dashboard from '../layout/Dashboard';
 import * as MD from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -30,6 +30,11 @@ const useStyles = makeStyles((theme) =>
 export default function DB(props) {
   const classes = useStyles();
   const [results, setResults] = useState(null);
+
+  // empty results when swapping db
+  useEffect(() => {
+    setResults(null);
+  }, [props.dbName]);
 
   return (
     <Dashboard {...props}>
