@@ -59,6 +59,7 @@ export default function Query(props) {
   const [isExecute, setIsExecute] = useState(false);
 
   const sendEdgeQL = async () => {
+    props.setResults(null);
     setProcessing(true);
     setError(null);
     try {
