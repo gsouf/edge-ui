@@ -35,7 +35,7 @@
   "scripts": {
     "start": "run-p start:server start:ui",
     "start:ui": "react-scripts start",
-    "start:server": "nodemon server --exec nodemon",
+    "start:server": "nodemon server",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

@@ -127,13 +127,11 @@ app.post('/api/logout', (req, res) => {
 const port = 5005;
 
 // give a chance for previous process to close before listening again.
-setTimeout(() => {
-  const server = app.listen(port, () =>
-    console.log(`Express server is running on http://localhost:${port}`)
-  );
+const server = app.listen(port, () =>
+  console.log(`Express server is running on http://localhost:${port}`)
+);
 
-  process.on('SIGHUP', () => {
-    console.log('Closing forcibly');
-    server.close();
-  });
-}, 1000);
+process.on('SIGUSR2', () => {
+  console.log('Closing forcibly');
+  server.close();
+});
