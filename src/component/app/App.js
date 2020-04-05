@@ -5,18 +5,14 @@ import Routes from './Routes';
 import AppContext from 'context/AppContext';
 import EdgeDBClient from 'service/EdgeDBClient';
 import { SnackbarProvider, useSnackbar } from 'notistack';
+import { dark as darkTheme } from './theme';
 
 // Inject styles
 import 'typeface-roboto';
 import './app.css';
 
 // theme
-const uiTheme = createMuiTheme({
-  palette: {
-    type: 'dark',
-    primary: { main: '#3760bd' },
-  },
-});
+const uiTheme = createMuiTheme(darkTheme);
 
 /**
  * Aimed to be run in the app context
