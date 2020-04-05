@@ -2,8 +2,26 @@ const express = require('express');
 const expressSession = require('express-session');
 const bodyParser = require('body-parser');
 const EdgeDbClient = require('./EdgeDbClient');
+const morgan = require('morgan');
 
 const app = express();
+
+app.use(
+  morgan(
+    '--> [:date] :remote-addr :remote-user ":method :url HTTP/:http-version"',
+    {
+      immediate: true,
+    }
+  )
+);
+app.use(
+  morgan(
+    '<-- [:date] :remote-addr :remote-user ":method :url HTTP/:http-version" - response: :status',
+    {
+      immediate: false,
+    }
+  )
+);
 
 // sessions
 app.use(
@@ -87,6 +105,7 @@ app.get('/api/has-connection', async (req, res) => {
       res.json({ hasConnection: false, error: e.message });
     }
   } else {
+    console.debug('no connection available');
     res.json({ hasConnection: false });
   }
 });
