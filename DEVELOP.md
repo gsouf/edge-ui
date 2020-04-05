@@ -1,3 +1,13 @@
+# Develop
+
+This project uses React and a an expressJs API.
+Find bellow the official instruction from Create React App.
+
+Express will run on port 5805 - but is forwarded by webpack.<br/>
+That's done via `"proxy": "http://localhost:5805"` in package.json.
+
+# Create React App
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -6,11 +16,11 @@ In the project directory, you can run:
 
 ### `yarn start`
 
-Runs the app in the development mode.<br />
+Runs the app in the development mode.
+Starts express server and webpack. <br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
 ### `yarn test`
 
