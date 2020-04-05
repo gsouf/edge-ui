@@ -1,6 +1,6 @@
 const edgedb = require('edgedb');
 
-class EdgeClient {
+class EdgeDbClient {
   constructor(connectOptions) {
     this.connectionOptions = connectOptions;
     this.connection = null;
@@ -31,4 +31,4 @@ class EdgeClient {
   }
 }
 
-module.exports = EdgeClient;
+module.exports = EdgeDbClient;

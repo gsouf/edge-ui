@@ -1,7 +1,7 @@
 const express = require('express');
 const expressSession = require('express-session');
 const bodyParser = require('body-parser');
-const EdgeClient = require('./EdgeClient');
+const EdgeDbClient = require('./EdgeDbClient');
 
 const app = express();
 
@@ -21,14 +21,14 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   if (req.session.connectionOptions) {
     console.debug('reusing existing connection');
-    req.edgeClient = new EdgeClient({
+    req.EdgeDbClient = new EdgeDbClient({
       ...req.session.connectionOptions,
       ...(req.body.database ? { database: req.body.database } : {}),
     });
   }
   res.once('finish', function () {
-    if (req.edgeClient) {
-      req.edgeClient.close();
+    if (req.EdgeDbClient) {
+      req.EdgeDbClient.close();
     }
   });
   next();
@@ -45,11 +45,10 @@ app.post('/api/login', async (req, res) => {
     user: req.body.user,
     password: req.body.password,
   };
-  const client = new EdgeClient(connectionOptions);
+  const client = new EdgeDbClient(connectionOptions);
 
   try {
     // connect and send a test query
-    console.debug('connecting to EdgeDB');
     await client.connect();
     const r = await (await client.getConnection()).fetchOne('SELECT 1 + 1');
     if (r !== 2) {
@@ -75,9 +74,9 @@ app.post('/api/login', async (req, res) => {
  */
 app.get('/api/has-connection', async (req, res) => {
   res.status(200);
-  if (req.edgeClient) {
+  if (req.EdgeDbClient) {
     try {
-      const conn = await req.edgeClient.getConnection();
+      const conn = await req.EdgeDbClient.getConnection();
       const r = await conn.fetchOne('SELECT 1 + 1');
       if (r === 2) {
         res.json({ hasConnection: true });
@@ -93,13 +92,13 @@ app.get('/api/has-connection', async (req, res) => {
 });
 
 app.post('/api/edgeql', async (req, res) => {
-  if (!req.edgeClient) {
+  if (!req.EdgeDbClient) {
     res.status(401);
     res.json({ status: 'error', error: 'Not connected' });
   } else {
     // TODO validate input
     try {
-      const conn = await req.edgeClient.getConnection();
+      const conn = await req.EdgeDbClient.getConnection();
       console.debug(`executing: ${req.body.query}`);
       if (req.body.isExecute) {
         await conn.execute(req.body.query);
