@@ -58,18 +58,16 @@ export default function CircularButton(props) {
 
   return (
     <div className={classes.wrapper}>
-      <MD.Tooltip title={props.label} arrow>
-        <MD.Fab
-          type={props.type}
-          disabled={props.disabled || props.loading}
-          aria-label={props.label}
-          color={props.color}
-          className={buttonClassname}
-          onClick={props.onClick}
-        >
-          {props.success ? <CheckIcon /> : props.icon}
-        </MD.Fab>
-      </MD.Tooltip>
+      <MD.Fab
+        type={props.type}
+        disabled={props.disabled || props.loading}
+        aria-label={props.label}
+        color={props.color}
+        className={buttonClassname}
+        onClick={props.onClick}
+      >
+        {props.success ? <CheckIcon /> : props.icon}
+      </MD.Fab>
       {loading && (
         <MD.CircularProgress size={68} className={classes.fabProgress} />
       )}

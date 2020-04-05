@@ -132,7 +132,6 @@ export default function Query(props) {
           loading={processing}
           success={processed}
           disabled={!edgeQL || processing}
-          label={'Execute the query'}
         />
         {error && (
           <Alert
