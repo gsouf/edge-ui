@@ -1,9 +1,9 @@
 {
-  "name": "edgedb-web-ui",
+  "name": "edge-ui",
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gsouf/edgedb-web-ui.git"
+    "url": "https://github.com/gsouf/edge-ui.git"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.7",

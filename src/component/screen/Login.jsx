@@ -81,7 +81,7 @@ export default function Login() {
               <MD.Link href="https://edgedb.com/">EdgeDB</MD.Link>.
               <div>
                 Follow it on{' '}
-                <MD.Link href="https://github.com/gsouf/edgedb-web-ui">
+                <MD.Link href="https://github.com/gsouf/edge-ui">
                   Github <GitHub />
                 </MD.Link>
               </div>
