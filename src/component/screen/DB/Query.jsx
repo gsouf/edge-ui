@@ -8,14 +8,10 @@ import Alert from '@material-ui/lab/Alert';
 import CloseIcon from '@material-ui/icons/Close';
 import StorageIcon from '@material-ui/icons/Storage';
 import PropTypes from 'prop-types';
+import CodeEditor from 'component/common/CodeEditor';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    edgeQlText: {
-      '& textarea': {
-        fontFamily: 'Monospace',
-      },
-    },
     actionZone: {
       display: 'flex',
       alignItems: 'center',
@@ -88,24 +84,10 @@ export default function Query(props) {
       alignItems="stretch"
     >
       <MD.Box className={classes.textBox}>
-        <MD.TextField
-          autoFocus
-          className={classes.edgeQlText}
-          variant={'filled'}
-          multiline
-          fullWidth
-          label={'EdgeQL'}
-          value={edgeQL}
-          inputProps={{
-            onKeyDown: (e) => {
-              if (e.ctrlKey && e.keyCode === 13) {
-                if (!processing) {
-                  sendEdgeQL();
-                }
-              }
-            },
-          }}
-          onChange={(e) => setEdgeQL(e.target.value)}
+        <CodeEditor
+          text={edgeQL}
+          setText={setEdgeQL}
+          requestSubmit={sendEdgeQL}
         />
       </MD.Box>
       <MD.Box className={classes.bar}>
