@@ -6,6 +6,13 @@ Find bellow the official instruction from Create React App.
 Express will run on port 5805 - but is forwarded by webpack.<br/>
 That's done via `"proxy": "http://localhost:5805"` in package.json.
 
+## Storybook
+
+This app uses storybook for development.<br/>
+Start it with `yarn run storybook`.
+
+Story files should always be placed alongside the component they belong to.
+
 # Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
