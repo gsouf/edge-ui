@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as MD from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import CircularButton from 'component/control/CircularButton';
+import CircularButton from 'component/common/CircularButton';
 import EdgeDBClient from 'service/EdgeDBClient';
 import Alert from '@material-ui/lab/Alert';
 import CloseIcon from '@material-ui/icons/Close';

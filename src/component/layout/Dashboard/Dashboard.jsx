@@ -3,12 +3,12 @@ import { navigate } from '@reach/router';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import * as MD from '@material-ui/core';
 import { Link } from '@reach/router';
-import Logo from '../misc/Logo';
+import Logo from 'component/common/Logo';
 import Storage from '@material-ui/icons/Storage';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import EdgeDBClient from '../../service/EdgeDBClient';
-import AppContext from '../../context/AppContext';
-import NavLink from './dashboard/NavLink';
+import EdgeDBClient from '../../../service/EdgeDBClient';
+import AppContext from '../../../context/AppContext';
+import NavLink from './NavLink';
 import PropTypes from 'prop-types';
 
 const navbarWidth = 300;

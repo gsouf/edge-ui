@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router } from '@reach/router';
-import PrivateRoute from './component/misc/PrivateRoute';
+import PrivateRoute from './PrivateRoute';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import Login from 'component/screen/Login';

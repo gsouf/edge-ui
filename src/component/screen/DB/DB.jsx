@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Dashboard from '../layout/Dashboard';
+import Dashboard from 'component/layout/Dashboard';
 import * as MD from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import ResultsViewer from './db/ResultsViewer';
-import Query from './db/Query';
-import DBMenu from './db/DBMenu';
+import ResultsViewer from './ResultsViewer';
+import Query from './Query';
+import DBMenu from './DBMenu';
 
 const useStyles = makeStyles((theme) =>
   createStyles({

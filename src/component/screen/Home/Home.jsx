@@ -1,5 +1,5 @@
 import React from 'react';
-import Dashboard from '../layout/Dashboard';
+import Dashboard from 'component/layout/Dashboard';
 import * as MD from '@material-ui/core';
 
 /**

@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import * as MD from '@material-ui/core';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Routes from './Routes';
-import AppContext from './context/AppContext';
-import EdgeDBClient from './service/EdgeDBClient';
+import AppContext from 'context/AppContext';
+import EdgeDBClient from 'service/EdgeDBClient';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 
 // Inject styles

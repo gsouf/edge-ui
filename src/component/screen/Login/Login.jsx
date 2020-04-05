@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import * as MD from '@material-ui/core';
-import Logo from '../misc/Logo';
-import Decoration from './login/Decoration';
+import Logo from 'component/common/Logo';
+import Decoration from './Decoration';
 import GitHub from '@material-ui/icons/GitHub';
-import LoginForm from './login/LoginForm';
+import LoginForm from './LoginForm';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
