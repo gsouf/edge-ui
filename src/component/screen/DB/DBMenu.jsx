@@ -68,10 +68,8 @@ export default function DBMenu(props) {
             <Storage />
           </MD.ListItemIcon>
           <MD.ListItemText primary={'Types'} />
-          {types === null && <MD.CircularProgress size={14} color="white" />}
-          {types && (
-            <MD.Chip size={'small'} color="white" label={types.length} />
-          )}
+          {types === null && <MD.CircularProgress size={14} color="inherit" />}
+          {types && <MD.Chip size={'small'} label={types.length} />}
         </MD.ListItem>
         <MD.Collapse in={true} timeout="auto" unmountOnExit>
           {types &&

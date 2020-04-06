@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import * as MD from '@material-ui/core';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Routes from './Routes';
-import AppContext from 'context/AppContext';
 import EdgeDBClient from 'service/EdgeDBClient';
 import { SnackbarProvider } from 'notistack';
 import { dark as darkTheme } from './theme';
 import AppManager from './AppManager';
+import { AuthContext } from 'context/AuthContext';
+import { IntrospectionProvider } from 'context/IntrospectionContext';
 
 // Inject styles
 import 'typeface-roboto';
@@ -18,7 +19,6 @@ const uiTheme = createMuiTheme(darkTheme);
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [hasAuth, setHasAuth] = useState(false);
-  const [databases, setDatabases] = useState(null);
 
   // check connection on init
   useEffect(() => {
@@ -48,13 +48,13 @@ export default function App() {
         )}
 
         {!loading && (
-          <AppContext.Provider
-            value={{ hasAuth, setHasAuth, databases, setDatabases }}
-          >
-            <AppManager>
-              <Routes />
-            </AppManager>
-          </AppContext.Provider>
+          <AuthContext.Provider value={{ hasAuth, setHasAuth }}>
+            <IntrospectionProvider>
+              <AppManager>
+                <Routes />
+              </AppManager>
+            </IntrospectionProvider>
+          </AuthContext.Provider>
         )}
       </SnackbarProvider>
     </ThemeProvider>

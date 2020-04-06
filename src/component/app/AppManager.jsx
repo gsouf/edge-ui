@@ -1,7 +1,7 @@
-import React, { useEffect, useContext } from 'react';
-import AppContext from 'context/AppContext';
+import React, { useEffect, useContext, useState } from 'react';
 import { useSnackbar } from 'notistack';
-import EdgeDBClient from 'service/EdgeDBClient';
+import { IntrospectionContext } from 'context/IntrospectionContext';
+import { AuthContext } from 'context/AuthContext';
 
 /**
  * Aimed to be run in the app context
@@ -9,29 +9,19 @@ import EdgeDBClient from 'service/EdgeDBClient';
  * @return {*}
  * @constructor
  */
-export default function AppManager(props) {
+export default function AppManager({ children }) {
   const { enqueueSnackbar } = useSnackbar();
-  const { hasAuth, setDatabases } = useContext(AppContext);
+  const { hasAuth, setHasAuth } = useContext(AuthContext);
+  const { resetDatabases, databases, reloadDatabases } = useContext(
+    IntrospectionContext
+  );
 
-  // fetch databases on login
+  //fetch databases on login
   useEffect(() => {
     if (hasAuth) {
-      setDatabases(null);
-      EdgeDBClient.edgeql({ query: 'SELECT sys::Database.name' })
-        .then((databases) => {
-          setDatabases(
-            databases.data.map((db) => ({
-              name: db,
-            }))
-          );
-        })
-        .catch((e) => {
-          enqueueSnackbar(`Cannot fetch db list: ${e.message}`, {
-            variant: 'error',
-          });
-        });
+      reloadDatabases();
     }
   }, [hasAuth]);
 
-  return props.children;
+  return <>{children}</>;
 }

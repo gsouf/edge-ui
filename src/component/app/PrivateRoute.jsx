@@ -1,13 +1,11 @@
 import React from 'react';
 import { Redirect } from '@reach/router';
 
-import AppContext from 'context/AppContext';
+import { AuthContext } from 'context/AuthContext';
 
 export default function PrivateRoute({ component: Component, ...rest }) {
-  const isAuth = true;
-
   return (
-    <AppContext.Consumer>
+    <AuthContext.Consumer>
       {({ hasAuth }) => {
         if (hasAuth) {
           return <Component {...rest} />;
@@ -15,6 +13,6 @@ export default function PrivateRoute({ component: Component, ...rest }) {
           return <Redirect to={'/login'} noThrow />;
         }
       }}
-    </AppContext.Consumer>
+    </AuthContext.Consumer>
   );
 }

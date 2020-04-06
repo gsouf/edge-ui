@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) =>
 export default function Logo(props) {
   const classes = useStyles();
 
-  const height = 60;
+  const height = 40;
   const thickness = 5;
 
   return (
