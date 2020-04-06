@@ -95,13 +95,13 @@ export default function Dashboard({ children, location }) {
             <MD.Collapse in={true} timeout="auto" unmountOnExit>
               {databases &&
                 databases.map((db) => (
-                  <MD.List component="div" disablePadding key={db}>
+                  <MD.List component="div" disablePadding key={db.name}>
                     <NavLink
                       className={classes.nested}
-                      to={`/db/${db}`}
+                      to={`/db/${db.name}`}
                       location={location}
                     >
-                      <MD.ListItemText primary={db} />
+                      <MD.ListItemText primary={db.name} />
                     </NavLink>
                   </MD.List>
                 ))}

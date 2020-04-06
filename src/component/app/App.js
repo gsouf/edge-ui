@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as MD from '@material-ui/core';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Routes from './Routes';
 import AppContext from 'context/AppContext';
 import EdgeDBClient from 'service/EdgeDBClient';
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import { SnackbarProvider } from 'notistack';
 import { dark as darkTheme } from './theme';
+import AppManager from './AppManager';
 
 // Inject styles
 import 'typeface-roboto';
@@ -13,35 +14,6 @@ import './app.css';
 
 // theme
 const uiTheme = createMuiTheme(darkTheme);
-
-/**
- * Aimed to be run in the app context
- * @param props
- * @return {*}
- * @constructor
- */
-function AppManager(props) {
-  const { enqueueSnackbar } = useSnackbar();
-  const { hasAuth, setDatabases } = useContext(AppContext);
-
-  // fetch databases on login
-  useEffect(() => {
-    if (hasAuth) {
-      setDatabases(null);
-      EdgeDBClient.edgeql({ query: 'SELECT sys::Database.name' })
-        .then((databases) => {
-          setDatabases(databases.data);
-        })
-        .catch((e) => {
-          enqueueSnackbar(`Cannot fetch db list: ${e.message}`, {
-            variant: 'error',
-          });
-        });
-    }
-  }, [hasAuth]);
-
-  return props.children;
-}
 
 export default function App() {
   const [loading, setLoading] = useState(true);
