@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import * as MD from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import TreeView from './TreeView';
 import RawView from './RawView';
 
 const useStyles = makeStyles((theme) =>
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme) =>
 export default function ResultsViewer(props) {
   const classes = useStyles();
 
-  const [viewMode, setViewMode] = useState('tree');
+  const [viewMode, setViewMode] = useState('json');
 
   return (
     <div className={classes.root}>
@@ -49,20 +48,12 @@ export default function ResultsViewer(props) {
             onChange={(e, newValue) => setViewMode(newValue)}
             value={viewMode}
           >
-            <MD.Tab
-              className={classes.tab}
-              fullWidth
-              label={'Tree view'}
-              value="tree"
-            />
-            <MD.Tab className={classes.tab} label={'Raw JSON'} value="raw" />
+            <MD.Tab className={classes.tab} label={'JSON'} value="json" />
           </MD.Tabs>
           <MD.Box className={classes.resultsContainer}>
             {(() => {
               switch (viewMode) {
-                case 'tree':
-                  return <TreeView data={props.results.data} />;
-                case 'raw':
+                case 'json':
                   return <RawView data={props.results.data} />;
               }
             })()}
