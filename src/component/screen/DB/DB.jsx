@@ -4,7 +4,6 @@ import * as MD from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ResultsViewer from './ResultsViewer';
 import Query from './Query';
-import DBMenu from './DBMenu';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -16,10 +15,6 @@ const useStyles = makeStyles((theme) =>
     },
     resultsViewer: {
       flex: 1,
-    },
-    dbMenu: {
-      width: '15rem',
-      borderLeft: `1px solid ${theme.palette.divider}`,
     },
   })
 );
@@ -50,9 +45,6 @@ export default function DB(props) {
         <MD.Box className={classes.dataArea}>
           <MD.Box className={classes.resultsViewer}>
             <ResultsViewer results={results} />
-          </MD.Box>
-          <MD.Box className={classes.dbMenu}>
-            <DBMenu dbName={props.dbName} />
           </MD.Box>
         </MD.Box>
       </MD.Box>
