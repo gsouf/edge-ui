@@ -54,7 +54,7 @@ export default function Query(props) {
   const [error, setError] = useState(null);
   const [isExecute, setIsExecute] = useState(false);
 
-  const sendEdgeQL = async () => {
+  const sendEdgeQL = async (edgeQL) => {
     props.setResults(null);
     setProcessing(true);
     setError(null);
@@ -86,7 +86,9 @@ export default function Query(props) {
       <MD.Box className={classes.textBox}>
         <CodeEditor
           text={edgeQL}
-          setText={setEdgeQL}
+          setText={(text) => {
+            setEdgeQL(text);
+          }}
           requestSubmit={sendEdgeQL}
         />
       </MD.Box>
@@ -126,7 +128,7 @@ export default function Query(props) {
       </MD.Box>
       <MD.Box className={classes.actionZone}>
         <CircularButton
-          onClick={sendEdgeQL}
+          onClick={() => sendEdgeQL(edgeQL)}
           icon={<ArrowRightIcon />}
           color="primary"
           loading={processing}
