@@ -59,8 +59,6 @@ export default function DBMenu(props) {
     });
   }, []);
 
-  console.log(types);
-
   return (
     <div className={classes.root}>
       <MD.List disablePadding={true}>
