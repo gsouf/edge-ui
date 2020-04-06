@@ -54,10 +54,11 @@ export default function DBMenu(props) {
   const [types, setTypes] = useState(null);
 
   useEffect(() => {
+    setTypes(null);
     loadTypes(props.dbName).then((r) => {
       setTypes(r.data);
     });
-  }, []);
+  }, [props.dbName]);
 
   return (
     <div className={classes.root}>
