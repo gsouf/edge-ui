@@ -1,90 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { monaco, ControlledEditor } from '@monaco-editor/react';
+import { Controlled as CodeMirror } from 'react-codemirror2';
 
-monaco.config({
-  paths: {
-    vs: '/vs',
-  },
-});
+// code mirror theming
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/material.css';
 
-monaco.init().then((monaco) => {
-  // register edgeql syntax
-  monaco.languages.register({ id: 'edgeql' });
-  // set completion
-  monaco.languages.registerCompletionItemProvider('edgeql', {
-    provideCompletionItems: function (model, position) {
-      // TODO make a real completion that understands the code
-      const keywords = [
-        'SELECT',
-        'FILTER',
-        'LIMIT',
-        'UNION',
-        'INSERT',
-        'UPDATE',
-        'SET',
-        'WITH',
-        'EXITS',
-        'IN',
-        'IS',
-        'DELETE',
-        'CREATE',
-        'FUNCTION',
-        'USING',
-        'abstract',
-        'type',
-        'extending',
-      ];
-      const suggestions = keywords.map((k) => ({
-        label: k,
-        kind: monaco.languages.CompletionItemKind.Text,
-        insertText: `${k} `,
-        insertTextRules:
-          monaco.languages.CompletionItemInsertTextRule.KeepWhitespace,
-      }));
-      return { suggestions };
-    },
-  });
-});
+/**
+ * IMPORTANT NOTE:
+ *   we use a class component because react-codemirror2 is loosing props references that we give to him.
+ *   Using a class components allows to pass `this` as reference and `this.props` carries the right version of props
+ */
+export default class CodeEditor extends React.Component {
+  /**
+   * On submit listen from ctrl+enter
+   * @param editor
+   * @param e
+   */
+  onEditorSubmit = (editor, e) => {
+    if (this.props.requestSubmit && e.ctrlKey && e.keyCode === 13) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.props.requestSubmit(this.props.text);
+    }
+  };
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    root: {},
-  })
-);
-
-export default function CodeEditor(props) {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-      <ControlledEditor
-        language="edgeql"
-        height="15rem"
-        width="100%"
-        theme="vs-dark"
-        options={{
-          minimap: {
-            enabled: false,
-          },
-        }}
-        value={props.text}
-        onChange={(ev, value) => {
-          props.setText(value);
-        }}
-        editorDidMount={(_, editor) => {
-          editor.onKeyDown((e) => {
-            if (props.requestSubmit && e.ctrlKey && e.keyCode === 3) {
-              e.preventDefault();
-              e.stopPropagation();
-              props.requestSubmit(editor.getValue());
-            }
-          });
-        }}
-      />
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <CodeMirror
+          value={this.props.text}
+          onBeforeChange={(editor, data, value) => {
+            this.props.setText(value);
+          }}
+          options={{
+            mode: 'xml',
+            theme: 'material',
+            lineNumbers: 'true',
+          }}
+          onKeyDown={this.onEditorSubmit}
+        />
+      </div>
+    );
+  }
 }
 
 CodeEditor.propTypes = {
